@@ -1,2 +1,4 @@
 sdriv
 secret.py
+HOME/migrations/*
+__pycache__
