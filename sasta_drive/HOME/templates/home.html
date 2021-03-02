@@ -1,0 +1,59 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account socialaccount %}
+<!DOCTYPE html>
+<html class="text-center" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Sasta Drive</title>
+    <link rel="stylesheet" href="static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="static/assets/css/styles.css">
+</head>
+
+<body>
+    <h6 class="display-3 text-capitalize text-center text-dark bg-light border rounded-0 border-success shadow-lg">Welcome to Sasta-Drive</h6>
+    {% if user.is_authenticated %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group" style="margin-left: 10cm;margin-top: 2cm;">
+            <legend class="border-bottom mb-4">Upload a File</legend>
+            {{ f_form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block text-capitalize text-center text-white border rounded-0 border-success shadow d-inline-block d-sm-flex align-items-center justify-content-sm-center pulse animated pull-right" data-toggle="tooltip" data-bss-tooltip="" data-placement="bottom" type="submit" title="Select files to add" style="margin-top: 40px;margin-left: 94px;margin-right: 94px;margin-bottom: 40px;width: 1108px;height: 52px;font-size: 30px;font-family: Comic Sans Ms;text-align: center;"><i class="fa fa-star"></i>&nbsp; Add File</button>
+        </div>
+    </form>
+    {% get_providers as socialaccount_providers %}
+    <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+        {% endif %}
+        <button type="submit" class="btn btn-danger" style="margin-left: 15cm;">{% trans 'Logout' %}</button>
+    </form>
+    <hr style="border-color: black;border-width: 5px;border-style: dashed;">
+    <h1 style="font-family: 'Courier New', Courier, monospace; font-weight: 300;margin-left: 12cm;"><u>YOUR  FILES  :</u></h1>
+    <HR style="border-style: double;border-width: 2px;">
+    {% for object in files %}
+    <h1>{{ object.Name }}
+    <a href = "{{ object.File.url }}">&MediumSpace;&MediumSpace;[ Download ]</a></h1>
+    <hr>
+    {% endfor %}
+    {% else %}
+    {% get_providers as socialaccount_providers %}
+    <br>
+    <h2 style="font-weight: 300;font-family: 'Courier New', Courier, monospace;margin-left: 11cm;"><u>Login / Register</u></h2>
+    <a href="accounts/login/"><button type="button" class="btn btn-info" style="margin-left: 12cm;margin-top: 1cm;"><h2>{% include "socialaccount/snippets/provider_list.html" with process="login" %}</h2></button></a>
+    {% endif %}
+    <hr style="border-color: black;border-style: dashed;border-shadow">
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/assets/js/bs-init.js"></script>
+</body>
+
+</html>
