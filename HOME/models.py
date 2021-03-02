@@ -1,9 +1,9 @@
 from django.db import models
-from allauth.socialaccount.models import SocialAccount
+from django.contrib.auth.models import User
 
-#Creating a through model for relating FileObject model with SocialAccount user object.
+#Creating a through model for relating FileObject model with User object.
 class Through(models.Model):
-    ForUser = models.OneToOneField(SocialAccount, on_delete=models.CASCADE, related_name='filemodels')
+    ForUser = models.OneToOneField(User, on_delete=models.CASCADE, related_name='filemodels')
     
 # Creating the FileObject model, which would contain the file name, and the File will be uploaded to 'media/documents/'
 # Also, the UserThrough ForeignKey property links the FileObject to the User who uploaded the file.
