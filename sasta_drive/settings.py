@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from .secret import DJANGO_SECRET_KEY, OAUTH2_CLIENT_ID, OAUTH2_SECRET
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ilkqser_hk91c4ssa@kzmul1l782e%wn#*kney7-*62mwj2fnq'
+SECRET_KEY = DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -102,8 +103,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '202011274921-j1oi6qt3fs05uq4uvok2h2njnn7kni3v.apps.googleusercontent.com',
-            'secret': 'PCVBfvlI89nWs9194xXRCOy5',
+            'client_id': OAUTH2_CLIENT_ID,
+            'secret': OAUTH2_SECRET,
             'key': ''
         }
     }
