@@ -1,4 +1,7 @@
 sdriv
 secret.py
-HOME/migrations/*
+HOME/migrations
 __pycache__
+.vscode
+.mypy_cache
+db.sqlite3
